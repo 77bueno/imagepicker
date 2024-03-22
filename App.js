@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 /* Importando os recursos da API nativa/móvel */
 import * as ImagePicker from "expo-image-picker";
+import * as MediaLibrary from "expo-media-library";
 
 export default function App() {
   /* State tradicional para armazenar a referência da foto (quando existir) */
@@ -61,6 +62,9 @@ export default function App() {
     /* Se o usuário não cancelar, atualizamos o state
     com a novo foto capturada. */
     if (!imagem.canceled) {
+      /* Usando a API do MediaLibrary para salvar no
+      armazenamento físico do dispositivo */
+      await MediaLibrary.saveToLibraryAsync(imagem.assets[0].uri);
       setFoto(imagem.assets[0].uri);
     }
   };
